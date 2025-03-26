@@ -5,13 +5,13 @@ import { ApiResponce } from "../utils/apiResponce.util.js";
 
 /* __________ CREATE MAIN CATEGORY __________ */
 export const addMainCategory = async (req, res) => {
-  const { name } = req.body;
-
-  if (!name) {
-    throw new BadRequestException("Main category name is required.");
+  if (!req.file) {
+    throw new BadRequestException("Main category image is required.");
   }
 
-  const category = await MainCategory.create({ name });
+  req.body.image = req.file.path.replace(/\\/g, "/");
+
+  const category = await MainCategory.create(req.body);
 
   return res.status(201).json(
     new ApiResponce({
@@ -59,10 +59,15 @@ export const getMainCategoryById = async (req, res) => {
 /* __________ UPDATE MAIN CATEGORY __________ */
 export const updateMainCategory = async (req, res) => {
   const { id } = req.params;
+
   const category = await MainCategory.findByPk(id);
 
   if (!category) {
     throw new NotFoundException("Main category not found.");
+  }
+
+  if (req.file) {
+    req.body.image = req.file.path.replace(/\\/g, "/");
   }
 
   await category.update(req.body);

@@ -29,6 +29,11 @@ export const User = sequelize.define(
       defaultValue: "user",
     },
 
+    status: {
+      type: DataTypes.ENUM("Active", "InActive"),
+      defaultValue: "Active",
+    },
+
     isAbleToChangePassword: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,

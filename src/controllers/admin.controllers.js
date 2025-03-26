@@ -34,3 +34,38 @@ export const login = async (req, res) => {
     })
   );
 };
+
+/* __________ GET ALL USERS __________ */
+export const getAllUsers = async (req, res) => {
+  const allUsers = await User.findAll({ where: { role: "user" } });
+
+  return res.status(200).json(
+    new ApiResponce({
+      statusCode: 200,
+      message:
+        allUsers.length > 0
+          ? "All users fetched successfully."
+          : "Users collection is empty",
+      data: allUsers,
+    })
+  );
+};
+
+/* __________ GET USER BY ID __________ */
+export const getUserById = async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.findByPk(id);
+
+  if (!user) {
+    throw new NotFoundException("Invalid user id");
+  }
+
+  return res.status(200).json(
+    new ApiResponce({
+      statusCode: 200,
+      message: "User fetched successfully.",
+      data: user,
+    })
+  );
+};

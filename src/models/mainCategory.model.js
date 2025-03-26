@@ -9,6 +9,11 @@ export const MainCategory = sequelize.define(
       allowNull: false,
       unique: true,
     },
+
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     tableName: "main_categories",

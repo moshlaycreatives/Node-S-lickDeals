@@ -11,6 +11,7 @@ import {
   getMainCategoryById,
   updateMainCategory,
 } from "../controllers/mainCategory.controllers.js";
+import { upload } from "../middlewares/upload.middleware.js";
 
 const mainCategoryRouter = Router();
 
@@ -20,6 +21,7 @@ mainCategoryRouter
   .post(
     loginAuth,
     adminAuth,
+    upload.single("image"),
     trimBodyObject,
     checkRequiredFields(["name"]),
     addMainCategory
@@ -32,6 +34,7 @@ mainCategoryRouter
   .patch(
     loginAuth,
     adminAuth,
+    upload.single("image"),
     trimBodyObject,
     checkRequiredFields(["name"]),
     updateMainCategory
