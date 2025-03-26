@@ -30,6 +30,7 @@ productRouter
       "discount_price",
       "company",
       "product_sku",
+      "sub_category_id",
     ]),
     addProduct
   );
