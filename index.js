@@ -22,7 +22,6 @@ if (process.env.NODE_ENV === "PRODUCTION") {
       key: privateKey,
       cert: certificate,
     };
-
     server = https.createServer(options, app);
   } catch (err) {
     console.error("Error reading files:", err);
