@@ -6,6 +6,9 @@ import {
   UnauthorizedException,
 } from "../errors/index.js";
 
+// ================================================
+// * Middleware : Login Auth
+// ================================================
 export const loginAuth = async (req, res, next) => {
   const token = req?.headers?.authorization;
 

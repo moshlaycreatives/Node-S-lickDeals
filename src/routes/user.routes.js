@@ -12,7 +12,9 @@ import {
 
 const userRouter = Router();
 
-// REGISTER
+// =============================================
+// 1. Register
+// =============================================
 userRouter
   .route("/register")
   .post(
@@ -22,12 +24,16 @@ userRouter
     register
   );
 
-// LOGIN
+// =============================================
+// 2. Login
+// =============================================
 userRouter
   .route("/login")
   .post(trimBodyObject, checkRequiredFields(["identifier", "password"]), login);
 
-// FORGOT PASSWORD
+// =============================================
+// 3. Forgot Password
+// =============================================
 userRouter
   .route("/forgot-password")
   .post(
@@ -37,7 +43,9 @@ userRouter
     forgotPassword
   );
 
-// VERIFY OTP
+// =============================================
+// 4. Verify Forgot Password OTP
+// =============================================
 userRouter
   .route("/verify-forgot-otp")
   .patch(
@@ -47,7 +55,9 @@ userRouter
     verifyForgotPasswordOtp
   );
 
-// RESET PASSWORD
+// =============================================
+// 5. Reset Password
+// =============================================
 userRouter
   .route("/reset-password")
   .patch(

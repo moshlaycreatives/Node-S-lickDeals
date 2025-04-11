@@ -3,7 +3,9 @@ import { MainCategory } from "../models/mainCategory.model.js";
 import { SubCategory } from "../models/subCategory.model.js";
 import { ApiResponce } from "../utils/apiResponce.util.js";
 
-/* __________ CREATE MAIN CATEGORY __________ */
+// =============================================
+// 1. Create Main Category
+// =============================================
 export const addMainCategory = async (req, res) => {
   if (!req.file) {
     throw new BadRequestException("Main category image is required.");
@@ -22,7 +24,9 @@ export const addMainCategory = async (req, res) => {
   );
 };
 
-/* __________ GET ALL MAIN CATEGORIES __________ */
+// =============================================
+// 2. Get All Main Category
+// =============================================
 export const getAllMainCategories = async (req, res) => {
   const categories = await MainCategory.findAll({ include: SubCategory });
 
@@ -38,7 +42,9 @@ export const getAllMainCategories = async (req, res) => {
   );
 };
 
-/* __________ GET SINGLE MAIN CATEGORY __________ */
+// =============================================
+// 3. Get Main Category By Id
+// =============================================
 export const getMainCategoryById = async (req, res) => {
   const { id } = req.params;
   const category = await MainCategory.findByPk(id, { include: SubCategory });
@@ -56,7 +62,9 @@ export const getMainCategoryById = async (req, res) => {
   );
 };
 
-/* __________ UPDATE MAIN CATEGORY __________ */
+// =============================================
+// 4. Update Main Category
+// =============================================
 export const updateMainCategory = async (req, res) => {
   const { id } = req.params;
 
@@ -81,7 +89,9 @@ export const updateMainCategory = async (req, res) => {
   );
 };
 
-/* __________ DELETE MAIN CATEGORY __________ */
+// =============================================
+// 5. Delete Main Category
+// =============================================
 export const deleteMainCategory = async (req, res) => {
   const { id } = req.params;
   const category = await MainCategory.findByPk(id);

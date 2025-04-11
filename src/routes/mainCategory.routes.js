@@ -15,7 +15,9 @@ import { upload } from "../middlewares/upload.middleware.js";
 
 const mainCategoryRouter = Router();
 
-// MAIN CATEGORY ROUTES
+// =============================================
+// 1. Add + Get All Main Category
+// =============================================
 mainCategoryRouter
   .route("/main")
   .post(
@@ -28,6 +30,9 @@ mainCategoryRouter
   )
   .get(getAllMainCategories);
 
+// =============================================
+// Get + Update + Delete - Main Category By Id
+// =============================================
 mainCategoryRouter
   .route("/main/:id")
   .get(getMainCategoryById)

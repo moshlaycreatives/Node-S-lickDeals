@@ -1,10 +1,13 @@
 import { BadRequestException, NotFoundException } from "../errors/index.js";
 import { Product } from "../models/product.model.js";
 import { ApiResponce } from "../utils/apiResponce.util.js";
+import { SubCategory } from "../models/subCategory.model.js";
+import { MainCategory } from "../models/mainCategory.model.js";
 
-/* __________ CREATE PRODUCT __________ */
+// ==============================================
+// 1. Add Product
+// ==============================================
 export const addProduct = async (req, res) => {
-  console.log("");
   const images = req.files.map((file) => file.path.replace(/\\/g, "/"));
 
   if (!images.length) {
@@ -25,9 +28,24 @@ export const addProduct = async (req, res) => {
   );
 };
 
-/* __________ GET ALL PRODUCTS __________ */
+// ==============================================
+// 2. Get All Products
+// ==============================================
 export const getAllProducts = async (req, res) => {
-  const products = await Product.findAll();
+  const products = await Product.findAll({
+    include: [
+      {
+        model: SubCategory,
+        attributes: ["name"],
+        include: [
+          {
+            model: MainCategory,
+            attributes: ["name"],
+          },
+        ],
+      },
+    ],
+  });
 
   return res.status(200).json(
     new ApiResponce({
@@ -41,7 +59,76 @@ export const getAllProducts = async (req, res) => {
   );
 };
 
-/* __________ GET SINGLE PRODUCT __________ */
+// ==============================================
+// 3. Get All Products By Sub Category Id
+// ==============================================
+export const getAllProductsBySubCategoryId = async (req, res) => {
+  const { id } = req.params;
+  const products = await Product.findAll({ where: { sub_category_id: id } });
+
+  return res.status(200).json(
+    new ApiResponce({
+      statusCode: 200,
+      message:
+        products.length > 0
+          ? "Products retrieved successfully."
+          : "Products table is empty.",
+      data: products,
+    })
+  );
+};
+
+// ==============================================
+// 4. Search Product
+// ==============================================
+export const searchProducts = async (req, res) => {
+  const { query } = req.query;
+
+  const lowerQuery = query.toLowerCase();
+
+  const products = await Product.findAll({
+    include: [
+      {
+        model: SubCategory,
+        attributes: ["name"],
+        include: [
+          {
+            model: MainCategory,
+            attributes: ["name"],
+          },
+        ],
+      },
+    ],
+  });
+
+  const filteredProducts = products.filter((product) => {
+    const productName = product.name?.toLowerCase() || "";
+    const subCategoryName = product.SubCategory?.name?.toLowerCase() || "";
+    const mainCategoryName =
+      product.SubCategory?.MainCategory?.name?.toLowerCase() || "";
+
+    return (
+      productName.includes(lowerQuery) ||
+      subCategoryName.includes(lowerQuery) ||
+      mainCategoryName.includes(lowerQuery)
+    );
+  });
+
+  return res.status(200).json(
+    new ApiResponce({
+      statusCode: 200,
+      message:
+        filteredProducts.length > 0
+          ? "Matching products retrieved successfully."
+          : "No matching products found.",
+      data: filteredProducts,
+    })
+  );
+};
+
+// =============================================
+// 5. Get Product By Id
+// =============================================
 export const getProductById = async (req, res) => {
   const { id } = req.params;
   const product = await Product.findByPk(id);
@@ -59,7 +146,9 @@ export const getProductById = async (req, res) => {
   );
 };
 
-/* __________ UPDATE PRODUCT __________ */
+// =============================================
+// 6. Update Product
+// =============================================
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
 
@@ -88,7 +177,9 @@ export const updateProduct = async (req, res) => {
   );
 };
 
-/* __________ DELETE PRODUCT __________ */
+// =============================================
+// 7. Delete Product
+// =============================================
 export const deleteProduct = async (req, res) => {
   const { id } = req.params;
   const product = await Product.findByPk(id);

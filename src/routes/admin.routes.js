@@ -11,12 +11,16 @@ import { adminAuth } from "../middlewares/adminAuth.middleware.js";
 
 const adminRouter = Router();
 
-// ADMIN LOGIN + GET ALL USERS
+// =============================================
+// 1. Login + Get All Users
+// =============================================
 adminRouter
   .route("/")
   .post(trimBodyObject, checkRequiredFields(["identifier", "password"]), login)
   .get(loginAuth, adminAuth, getAllUsers);
 
-// GET USER BY ID
+// =============================================
+// 2. Get User By Id
+// =============================================
 adminRouter.route("/:id").get(loginAuth, adminAuth, getUserById);
 export { adminRouter };

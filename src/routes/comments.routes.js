@@ -8,7 +8,9 @@ import {
 
 const commentRouter = Router();
 
-// ADD NEW COMMENTS
+// =============================================
+// 1. Add New Comment
+// =============================================
 commentRouter
   .route("/")
   .post(
@@ -17,7 +19,9 @@ commentRouter
     addNewComment
   );
 
-// GET ALL COMMENTS
+// =============================================
+// 2. Get All Comments
+// =============================================
 commentRouter.route("/:productId").get(getAllComments);
 
 export { commentRouter };

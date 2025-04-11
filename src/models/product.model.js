@@ -23,49 +23,27 @@ export const Product = sequelize.define("Product", {
     allowNull: false,
   },
 
-  description: {
-    type: DataTypes.STRING,
-    defaultValue: "",
-  },
-
   price: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
 
-  discount: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0,
-  },
-
-  discount_price: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0,
-  },
-
-  company: {
+  product_url: {
     type: DataTypes.STRING,
-    allowNull: false,
+    defaultValue: "",
   },
 
-  likes: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0,
-  },
-
-  label: {
-    type: DataTypes.ENUM("Popular", "New"),
-    defaultValue: "New",
-  },
-
-  tag: {
-    type: DataTypes.ENUM("For You", "Personalized"),
-    defaultValue: "For You",
-  },
-
-  product_sku: {
+  discount_code: {
     type: DataTypes.STRING,
-    allowNull: false,
+    defaultValue: "",
+  },
+
+  deal_start_date: {
+    type: DataTypes.DATE,
+  },
+
+  deal_end_date: {
+    type: DataTypes.DATE,
   },
 
   sub_category_id: {

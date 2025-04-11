@@ -1,6 +1,8 @@
 import { NotFoundException } from "../errors/index.js";
 
-/** __________ Middleware: Trim body object also for nested fields in objects __________ */
+// ===================================================================
+// * Middleware : Trim body object also for nested fields in objects
+// ===================================================================
 export const trimBodyObject = (req, res, next) => {
   const emptyFields = [];
 

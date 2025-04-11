@@ -1,14 +1,18 @@
-/** __________ Errors __________ */
+// ================================================
+// * Erros
+// ================================================
 import { NotAcceptableException } from "../errors/notAcceptableException.error.js";
 
-/** __________ Core Modules __________ */
+// ================================================
+// * Core Modules
+// ================================================
 import multer from "multer";
 import fs from "fs";
 import path from "path";
 
-/**
- * Storage
- */
+// ================================================
+// 1. Storage
+// ================================================
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     if (!fs.existsSync("public")) {
@@ -27,9 +31,9 @@ const storage = multer.diskStorage({
   },
 });
 
-/**
- * File Filter
- */
+// ================================================
+// 2. File Filter
+// ================================================
 const fileFilter = (req, file, cb) => {
   const extention = path.extname(file.originalname);
 
@@ -45,6 +49,6 @@ const fileFilter = (req, file, cb) => {
   cb(null, true);
 };
 
-const upload = multer({ storage, fileFilter });
+const upload = multer({ storage /* fileFilter */ });
 
 export { upload };

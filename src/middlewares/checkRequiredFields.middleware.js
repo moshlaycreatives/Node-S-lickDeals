@@ -1,5 +1,8 @@
 import { NotFoundException } from "../errors/index.js";
 
+// ================================================
+// * Middleware : Check Required Fields
+// ================================================
 export const checkRequiredFields = (requiredFields) => (req, res, next) => {
   const missingFields = [];
 
@@ -47,9 +50,9 @@ export const checkRequiredFields = (requiredFields) => (req, res, next) => {
   }
 };
 
-/* ------------------------------------------------------
-                    SAMPLE HOW TO PASS DATA 
----------------------------------------------------------*/
+// ================================================
+// * Sample How To Pass Data
+// ================================================
 /*
 checkRequiredFields([
   "companyName",

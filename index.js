@@ -8,10 +8,14 @@ import { connectDb, sequelize } from "./src/config/db.config.js";
 import { createAdmin } from "./src/utils/createAdmin.util.js";
 import setupAssociations from "./src/utils/associations.util.js";
 
-/** __________ Dot Env Configuration __________ */
+// =============================================
+// 1. Dot Env Configuration
+// =============================================
 dotenv.config();
 
-/** __________ Server Setup with Clustering __________ */
+// =============================================
+// 2. Server Setup With Clustering
+// =============================================
 let server;
 if (process.env.NODE_ENV === "PRODUCTION") {
   try {
@@ -30,8 +34,10 @@ if (process.env.NODE_ENV === "PRODUCTION") {
   server = http.createServer(app);
 }
 
-/** __________ Server Listing & DB Connection __________ */
-const PORT = process.env.PORT;
+// =============================================
+// 3. Server Listening & DB Connection
+// =============================================
+const PORT = process.env.PORT || 8585;
 (async () => {
   try {
     await connectDb();

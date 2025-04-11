@@ -9,21 +9,33 @@ import { mainCategoryRouter } from "./mainCategory.routes.js";
 
 const router = Router();
 
-// Admin Routes
+// =============================================
+// 1. Admin Routes
+// =============================================
 router.use("/admin", adminRouter);
 
-// User Routes
+// =============================================
+// 2. User Routes
+// =============================================
 router.use("/user", userRouter);
 
-// PRODUCT ROUTES
+// =============================================
+// 3. Product Routes
+// =============================================
 router.use("/product", productRouter);
 
-// COMMENT ROUTES
+// =============================================
+// 4. Comment Routes
+// =============================================
 router.use("/comment", loginAuth, commentRouter);
 
-// MAIN CATEGORY ROUTES
+// =============================================
+// 5. Main Category Routes
+// =============================================
 router.use("/category", mainCategoryRouter);
 
-// CATEGORY ROUTES
+// =============================================
+// 6. Sub Category Routes
+// =============================================
 router.use("/category", subCategoryRouter);
 export { router };

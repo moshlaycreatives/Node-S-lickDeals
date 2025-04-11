@@ -14,7 +14,9 @@ import { adminAuth } from "../middlewares/adminAuth.middleware.js";
 
 const subCategoryRouter = Router();
 
-// SUB CATEGORY ROUTES
+// =============================================
+// 1. Add Sub Category
+// =============================================
 subCategoryRouter
   .route("/sub")
   .post(
@@ -23,9 +25,16 @@ subCategoryRouter
     trimBodyObject,
     checkRequiredFields(["name", "main_category_id"]),
     addSubCategory
-  )
-  .get(getAllSubCategories);
+  );
 
+// ==============================================
+// 2. Get All Sub Categories By Main Category Id
+// ==============================================
+subCategoryRouter.route("/get-all-sub/:id").get(getAllSubCategories);
+
+// ================================================
+// 3. Get + Update + Delete - Sub Categories By Id
+// ================================================
 subCategoryRouter
   .route("/sub/:id")
   .get(getSubCategoryById)

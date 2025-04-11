@@ -2,7 +2,9 @@ import { Comment } from "../models/comments.model.js";
 import { User } from "../models/user.model.js";
 import { ApiResponce } from "../utils/apiResponce.util.js";
 
-/* __________ ADD NEW COMMENT __________ */
+// =============================================
+// 1. Add New Comment
+// =============================================
 export const addNewComment = async (req, res) => {
   const { userId, productId, content } = req.body;
 
@@ -16,7 +18,9 @@ export const addNewComment = async (req, res) => {
   );
 };
 
-/* __________ Get ALL COMMENTS FOR A PRODUCT INCLUDING USER DETAILS __________ */
+// =========================================================
+// 2. Get All Comments For a Product Including User Details
+// =========================================================
 export const getAllComments = async (req, res) => {
   const { productId } = req.params;
 

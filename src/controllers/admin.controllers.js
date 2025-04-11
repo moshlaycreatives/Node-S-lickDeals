@@ -4,7 +4,9 @@ import { ApiResponce } from "../utils/apiResponce.util.js";
 import { Op } from "sequelize";
 import jwt from "jsonwebtoken";
 
-/* __________ LOGIN __________ */
+// =============================================
+// 1. Login
+// =============================================
 export const login = async (req, res) => {
   const { identifier, password } = req.body;
 
@@ -35,7 +37,9 @@ export const login = async (req, res) => {
   );
 };
 
-/* __________ GET ALL USERS __________ */
+// =============================================
+// 2. Get All Users
+// =============================================
 export const getAllUsers = async (req, res) => {
   const allUsers = await User.findAll({ where: { role: "user" } });
 
@@ -51,7 +55,9 @@ export const getAllUsers = async (req, res) => {
   );
 };
 
-/* __________ GET USER BY ID __________ */
+// =============================================
+// 3. Get User By Id
+// =============================================
 export const getUserById = async (req, res) => {
   const { id } = req.params;
 

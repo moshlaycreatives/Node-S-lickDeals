@@ -10,7 +10,9 @@ import jwt from "jsonwebtoken";
 import { ForgotPassword } from "../models/forgotPassword.model.js";
 import { sendMail } from "../utils/sendEmail.util.js";
 
-/* __________ REGISTER __________ */
+// =============================================
+// 1. Register
+// =============================================
 export const register = async (req, res) => {
   const isUserNameExists = await User.findOne({
     where: { username: req.body.username },
@@ -37,7 +39,9 @@ export const register = async (req, res) => {
   );
 };
 
-/* __________ LOGIN __________ */
+// =============================================
+// 2. Login
+// =============================================
 export const login = async (req, res) => {
   const { identifier, password } = req.body;
 
@@ -68,7 +72,9 @@ export const login = async (req, res) => {
   );
 };
 
-/* __________ FORGOT PASSWORD __________ */
+// =============================================
+// 3. Forgot Password
+// =============================================
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ where: { email } });
@@ -99,7 +105,9 @@ export const forgotPassword = async (req, res) => {
   );
 };
 
-/* __________ VERIFY FORGOT PASSWORD OTP __________ */
+// =============================================
+// 4. Verify Forgot Password OTP
+// =============================================
 export const verifyForgotPasswordOtp = async (req, res) => {
   const { email, otp } = req.body;
   const user = await User.findOne({ where: { email } });
@@ -127,7 +135,9 @@ export const verifyForgotPasswordOtp = async (req, res) => {
   );
 };
 
-/* __________ RESET PASSWORD __________ */
+// =============================================
+// 5. Reset Password
+// =============================================
 export const resetPassword = async (req, res) => {
   const { email, newPassword } = req.body;
   const user = await User.findOne({ where: { email } });

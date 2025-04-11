@@ -5,7 +5,9 @@ import {
   addProduct,
   deleteProduct,
   getAllProducts,
+  getAllProductsBySubCategoryId,
   getProductById,
+  searchProducts,
   updateProduct,
 } from "../controllers/product.controllers.js";
 import { upload } from "../middlewares/upload.middleware.js";
@@ -14,7 +16,9 @@ import { adminAuth } from "../middlewares/adminAuth.middleware.js";
 
 const productRouter = Router();
 
-// ADD PRODUCT
+// ==============================================
+// 1. Add Product + Get All Products
+// ==============================================
 productRouter
   .route("/")
   .post(
@@ -22,46 +26,35 @@ productRouter
     adminAuth,
     upload.array("images"),
     trimBodyObject,
-    checkRequiredFields([
-      "name",
-      "description",
-      "price",
-      "discount",
-      "discount_price",
-      "company",
-      "product_sku",
-      "sub_category_id",
-    ]),
+    checkRequiredFields(["name", "price", "sub_category_id"]),
     addProduct
-  );
+  )
+  .get(getAllProducts);
 
-// GET ALL PRODUCTS
-productRouter.route("/").get(getAllProducts);
+// ==============================================
+// 2. Get All Products By Sub Category Id
+// ==============================================
+productRouter.route("/category/:id").get(getAllProductsBySubCategoryId);
 
-// GET SINGLE PRODUCT
-productRouter.route("/:id").get(getProductById);
+// ==============================================
+// 3. Search Product
+// ==============================================
+productRouter.route("/search").get(searchProducts);
 
-// UPDATE PRODUCT
+// ==============================================
+// 4. Get + Update + Delete By Id
+// ==============================================
 productRouter
   .route("/:id")
+  .get(getProductById)
   .patch(
     loginAuth,
     adminAuth,
     upload.array("images"),
     trimBodyObject,
-    checkRequiredFields([
-      "name",
-      "description",
-      "price",
-      "discount",
-      "discount_price",
-      "company",
-      "product_sku",
-    ]),
+    checkRequiredFields(["name", "price", "sub_category_id"]),
     updateProduct
-  );
-
-// DELETE PRODUCT
-productRouter.route("/:id").delete(loginAuth, adminAuth, deleteProduct);
+  )
+  .delete(loginAuth, adminAuth, deleteProduct);
 
 export { productRouter };
