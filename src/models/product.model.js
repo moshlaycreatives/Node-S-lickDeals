@@ -58,7 +58,8 @@ export const Product = sequelize.define(
     },
 
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT("long"),
+      allowNull: true,
     },
   },
   {
