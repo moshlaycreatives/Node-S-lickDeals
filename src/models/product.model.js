@@ -54,4 +54,8 @@ export const Product = sequelize.define("Product", {
       key: "id",
     },
   },
+
+  description: {
+    type: DataTypes.STRING,
+  },
 });

@@ -6,6 +6,7 @@ import { loginAuth } from "../middlewares/loginAuth.middleware.js";
 import { adminRouter } from "./admin.routes.js";
 import { subCategoryRouter } from "./subCategory.routes.js";
 import { mainCategoryRouter } from "./mainCategory.routes.js";
+import { favoriteRouter } from "./favorite.routes.js";
 
 const router = Router();
 
@@ -38,4 +39,10 @@ router.use("/category", mainCategoryRouter);
 // 6. Sub Category Routes
 // =============================================
 router.use("/category", subCategoryRouter);
+
+// =============================================
+// 6. Favorite Products Routes
+// =============================================
+router.use("/favorite", favoriteRouter);
+
 export { router };
