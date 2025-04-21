@@ -1,61 +1,68 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/db.config.js";
 
-export const Product = sequelize.define("Product", {
-  images: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        msg: "At least one product image is required.",
+export const Product = sequelize.define(
+  "Product",
+  {
+    images: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "At least one product image is required.",
+        },
+      },
+      get() {
+        return JSON.parse(this.getDataValue("images") || "[]");
+      },
+      set(value) {
+        this.setDataValue("images", JSON.stringify(value));
       },
     },
-    get() {
-      return JSON.parse(this.getDataValue("images") || "[]");
+
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    set(value) {
-      this.setDataValue("images", JSON.stringify(value));
+
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-  },
 
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
+    product_url: {
+      type: DataTypes.STRING,
+      defaultValue: "",
+    },
 
-  price: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
+    discount_code: {
+      type: DataTypes.STRING,
+      defaultValue: "",
+    },
 
-  product_url: {
-    type: DataTypes.STRING,
-    defaultValue: "",
-  },
+    deal_start_date: {
+      type: DataTypes.DATE,
+    },
 
-  discount_code: {
-    type: DataTypes.STRING,
-    defaultValue: "",
-  },
+    deal_end_date: {
+      type: DataTypes.DATE,
+    },
 
-  deal_start_date: {
-    type: DataTypes.DATE,
-  },
+    sub_category_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "sub_categories",
+        key: "id",
+      },
+    },
 
-  deal_end_date: {
-    type: DataTypes.DATE,
-  },
-
-  sub_category_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: "sub_categories",
-      key: "id",
+    description: {
+      type: DataTypes.STRING,
     },
   },
-
-  description: {
-    type: DataTypes.STRING,
-  },
-});
+  {
+    tableName: "products",
+    timestamps: true,
+  }
+);

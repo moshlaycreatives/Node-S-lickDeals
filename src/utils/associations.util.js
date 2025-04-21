@@ -18,8 +18,12 @@ SubCategory.hasMany(Product, {
 });
 Product.belongsTo(SubCategory, { foreignKey: "sub_category_id" });
 
-User.hasMany(Comment, { foreignKey: "userId", onDelete: "CASCADE" });
-Comment.belongsTo(User, { foreignKey: "userId" });
+User.hasMany(Comment, {
+  foreignKey: "userId",
+  as: "comments",
+  onDelete: "CASCADE",
+});
+Comment.belongsTo(User, { foreignKey: "userId", as: "user" });
 
 Product.hasMany(Comment, { foreignKey: "productId", onDelete: "CASCADE" });
 Comment.belongsTo(Product, { foreignKey: "productId" });

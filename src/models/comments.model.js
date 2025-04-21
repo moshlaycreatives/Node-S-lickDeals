@@ -8,6 +8,22 @@ export const Comment = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id",
+      },
+    },
+    productId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "products",
+        key: "id",
+      },
+    },
   },
   {
     tableName: "comments",
