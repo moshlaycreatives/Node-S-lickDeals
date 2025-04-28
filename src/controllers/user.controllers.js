@@ -67,7 +67,8 @@ export const login = async (req, res) => {
     new ApiResponce({
       statusCode: 200,
       message: "Login successful.",
-      data: { token },
+      data: user,
+      token,
     })
   );
 };

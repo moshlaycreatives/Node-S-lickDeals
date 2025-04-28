@@ -28,7 +28,7 @@ router.use("/product", productRouter);
 // =============================================
 // 4. Comment Routes
 // =============================================
-router.use("/comment", loginAuth, commentRouter);
+router.use("/comment", commentRouter);
 
 // =============================================
 // 5. Main Category Routes

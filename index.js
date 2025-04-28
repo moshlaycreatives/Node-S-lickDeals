@@ -48,8 +48,8 @@ const PORT = process.env.PORT || 8585;
         console.info(`==> 🌎 Go to http://localhost:${PORT}`);
       }
     });
-    await sequelize.sync({ force: true });
-    // await sequelize.sync();
+    // await sequelize.sync({ force: true });
+    await sequelize.sync();
     console.log("All models were synchronized successfully.");
     await createAdmin();
     setupAssociations();

@@ -5,6 +5,7 @@ import {
   addNewComment,
   getAllComments,
 } from "../controllers/comments.controllers.js";
+import { loginAuth } from "../middlewares/loginAuth.middleware.js";
 
 const commentRouter = Router();
 
@@ -14,6 +15,7 @@ const commentRouter = Router();
 commentRouter
   .route("/")
   .post(
+    loginAuth,
     trimBodyObject,
     checkRequiredFields(["userId", "productId", "content"]),
     addNewComment

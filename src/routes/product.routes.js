@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { trimBodyObject } from "../middlewares/trimBodyObject.middleware.js";
 import { checkRequiredFields } from "../middlewares/checkRequiredFields.middleware.js";
 import {
   addProduct,
@@ -25,24 +24,23 @@ productRouter
     loginAuth,
     adminAuth,
     upload.array("images"),
-    trimBodyObject,
     checkRequiredFields(["name", "price", "sub_category_id"]),
     addProduct
   )
   .get(getAllProducts);
 
 // ==============================================
-// 2. Get All Products By Sub Category Id
-// ==============================================
-productRouter.route("/category/:id").get(getAllProductsBySubCategoryId);
-
-// ==============================================
-// 3. Search Product
+// 2. Get Top Products + Search Products
 // ==============================================
 productRouter.route("/search").get(searchProducts);
 
 // ==============================================
-// 4. Get + Update + Delete By Id
+// 3. Get All Products By Sub Category Id
+// ==============================================
+productRouter.route("/category/:id").get(getAllProductsBySubCategoryId);
+
+// ==============================================
+// 5. Get + Update + Delete By Id
 // ==============================================
 productRouter
   .route("/:id")
@@ -51,7 +49,6 @@ productRouter
     loginAuth,
     adminAuth,
     upload.array("images"),
-    trimBodyObject,
     checkRequiredFields(["name", "price", "sub_category_id"]),
     updateProduct
   )

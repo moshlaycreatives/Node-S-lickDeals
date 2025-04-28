@@ -48,6 +48,11 @@ export const Product = sequelize.define(
       type: DataTypes.DATE,
     },
 
+    deals: {
+      type: DataTypes.ENUM(["Top", ""]),
+      defaultValue: "",
+    },
+
     sub_category_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

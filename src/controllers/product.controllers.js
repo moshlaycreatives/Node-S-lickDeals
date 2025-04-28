@@ -60,46 +60,45 @@ export const getAllProducts = async (req, res) => {
 };
 
 // ==============================================
-// 3. Get All Products By Sub Category Id
-// ==============================================
-export const getAllProductsBySubCategoryId = async (req, res) => {
-  const { id } = req.params;
-  const products = await Product.findAll({ where: { sub_category_id: id } });
-
-  return res.status(200).json(
-    new ApiResponce({
-      statusCode: 200,
-      message:
-        products.length > 0
-          ? "Products retrieved successfully."
-          : "Products table is empty.",
-      data: products,
-    })
-  );
-};
-
-// ==============================================
-// 4. Search Product
+// 3. Get All Top Products
 // ==============================================
 export const searchProducts = async (req, res) => {
   const { query } = req.query;
 
   const lowerQuery = query.toLowerCase();
 
-  const products = await Product.findAll({
-    include: [
-      {
-        model: SubCategory,
-        attributes: ["name"],
+  const searchQuery = query
+    ? {
         include: [
           {
-            model: MainCategory,
+            model: SubCategory,
             attributes: ["name"],
+            include: [
+              {
+                model: MainCategory,
+                attributes: ["name"],
+              },
+            ],
           },
         ],
-      },
-    ],
-  });
+      }
+    : {
+        where: { deals: "Top" },
+        include: [
+          {
+            model: SubCategory,
+            attributes: ["name"],
+            include: [
+              {
+                model: MainCategory,
+                attributes: ["name"],
+              },
+            ],
+          },
+        ],
+      };
+
+  const products = await Product.findAll(searchQuery);
 
   const filteredProducts = products.filter((product) => {
     const productName = product.name?.toLowerCase() || "";
@@ -122,6 +121,25 @@ export const searchProducts = async (req, res) => {
           ? "Matching products retrieved successfully."
           : "No matching products found.",
       data: filteredProducts,
+    })
+  );
+};
+
+// ==============================================
+// 4. Get All Products By Sub Category Id
+// ==============================================
+export const getAllProductsBySubCategoryId = async (req, res) => {
+  const { id } = req.params;
+  const products = await Product.findAll({ where: { sub_category_id: id } });
+
+  return res.status(200).json(
+    new ApiResponce({
+      statusCode: 200,
+      message:
+        products.length > 0
+          ? "Products retrieved successfully."
+          : "Products table is empty.",
+      data: products,
     })
   );
 };

@@ -28,6 +28,7 @@ export const getAllComments = async (req, res) => {
     where: { productId },
     include: {
       model: User,
+      as: "user",
       attributes: ["id", "username", "email"],
     },
   });
