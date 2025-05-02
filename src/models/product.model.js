@@ -62,9 +62,33 @@ export const Product = sequelize.define(
       },
     },
 
-    description: {
+    descriptions: {
       type: DataTypes.TEXT("long"),
       allowNull: true,
+      get() {
+        const rawValue = this.getDataValue("descriptions");
+        try {
+          return JSON.parse(rawValue || "[]");
+        } catch (err) {
+          return [];
+        }
+      },
+      set(value) {
+        if (Array.isArray(value)) {
+          this.setDataValue("descriptions", JSON.stringify(value));
+        } else {
+          try {
+            const parsed = JSON.parse(value);
+            if (Array.isArray(parsed)) {
+              this.setDataValue("descriptions", JSON.stringify(parsed));
+            } else {
+              this.setDataValue("descriptions", JSON.stringify([]));
+            }
+          } catch (err) {
+            this.setDataValue("descriptions", JSON.stringify([]));
+          }
+        }
+      },
     },
   },
   {
