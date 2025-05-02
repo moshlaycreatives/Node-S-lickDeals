@@ -9,7 +9,6 @@ import { MainCategory } from "../models/mainCategory.model.js";
 // ==============================================
 export const addProduct = async (req, res) => {
   const images = req.files.map((file) => file.path.replace(/\\/g, "/"));
-  console.log("Bodyyyyyyyy: ", req.body);
 
   if (!images.length) {
     throw new BadRequestException("At least one product image is required.");
