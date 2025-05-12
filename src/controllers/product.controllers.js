@@ -40,7 +40,7 @@ export const getAllProducts = async (req, res) => {
         include: [
           {
             model: MainCategory,
-            attributes: ["name"],
+            attributes: ["id", "name"],
           },
         ],
       },
@@ -144,8 +144,48 @@ export const getAllProductsBySubCategoryId = async (req, res) => {
   );
 };
 
+// ==============================================
+// 5. Get All Products By Main Category Id
+// ==============================================
+export const getAllProductsByMainCategoryId = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const products = await Product.findAll({
+      include: {
+        model: SubCategory,
+        where: {
+          main_category_id: id,
+        },
+        include: {
+          model: MainCategory,
+        },
+      },
+    });
+
+    return res.status(200).json(
+      new ApiResponce({
+        statusCode: 200,
+        message:
+          products.length > 0
+            ? "Products retrieved successfully."
+            : "No products found for this main category.",
+        data: products,
+      })
+    );
+  } catch (error) {
+    return res.status(500).json(
+      new ApiResponce({
+        statusCode: 500,
+        message: "An error occurred while retrieving products.",
+        error: error.message,
+      })
+    );
+  }
+};
+
 // =============================================
-// 5. Get Product By Id
+// 6. Get Product By Id
 // =============================================
 export const getProductById = async (req, res) => {
   const { id } = req.params;
@@ -165,7 +205,7 @@ export const getProductById = async (req, res) => {
 };
 
 // =============================================
-// 6. Update Product
+// 7. Update Product
 // =============================================
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
@@ -196,7 +236,7 @@ export const updateProduct = async (req, res) => {
 };
 
 // =============================================
-// 7. Delete Product
+// 8. Delete Product
 // =============================================
 export const deleteProduct = async (req, res) => {
   const { id } = req.params;

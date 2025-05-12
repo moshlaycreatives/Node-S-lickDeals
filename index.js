@@ -49,6 +49,7 @@ const PORT = process.env.PORT || 8585;
       }
     });
     // await sequelize.sync({ force: true });
+    // await sequelize.sync({ alter: true });
     await sequelize.sync();
     console.log("All models were synchronized successfully.");
     await createAdmin();

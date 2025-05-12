@@ -4,6 +4,7 @@ import {
   addProduct,
   deleteProduct,
   getAllProducts,
+  getAllProductsByMainCategoryId,
   getAllProductsBySubCategoryId,
   getProductById,
   searchProducts,
@@ -38,6 +39,11 @@ productRouter.route("/search").get(searchProducts);
 // 3. Get All Products By Sub Category Id
 // ==============================================
 productRouter.route("/category/:id").get(getAllProductsBySubCategoryId);
+
+// ==============================================
+// 4. Get All Products By Main Category Id
+// ==============================================
+productRouter.route("/main-category/:id").get(getAllProductsByMainCategoryId);
 
 // ==============================================
 // 5. Get + Update + Delete By Id

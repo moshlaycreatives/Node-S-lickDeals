@@ -25,6 +25,11 @@ export const Product = sequelize.define(
       allowNull: false,
     },
 
+    button_text: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
