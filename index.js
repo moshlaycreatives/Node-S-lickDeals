@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+dotenv.config();
 import https from "https";
 import http from "http";
 import fs from "fs";
@@ -7,11 +8,6 @@ import { app } from "./src/app.js";
 import { connectDb, sequelize } from "./src/config/db.config.js";
 import { createAdmin } from "./src/utils/createAdmin.util.js";
 import setupAssociations from "./src/utils/associations.util.js";
-
-// =============================================
-// 1. Dot Env Configuration
-// =============================================
-dotenv.config();
 
 // =============================================
 // 2. Server Setup With Clustering
